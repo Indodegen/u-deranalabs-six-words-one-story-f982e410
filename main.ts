@@ -5,6 +5,10 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const text = readFileSync(join(here, "entry.txt"), "utf8");
 const line = text.trimEnd();
+if (line.includes("\n")) {
+  console.error("entry.txt must be a single line");
+  process.exit(1);
+}
 const words = line.split(/\s+/).filter(Boolean);
 if (line.length < 1 || line.length > 60 || words.length !== 6) {
   console.error(
